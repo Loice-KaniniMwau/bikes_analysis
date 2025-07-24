@@ -132,7 +132,26 @@ HAVING
 ORDER BY
     number_of_orders DESC;
 
--- visualization
+-- Number of Customers--
+SELECT
+  COUNT(id) AS 'Total Customers'
+FROM
+  tbl_customers
+WHERE
+  deleted_at IS NULL;
+
+-- How many new customers are acquired each month--
+SELECT
+  DATE_FORMAT(created_at, '%Y-%m') AS 'Month',
+  COUNT(id) AS 'New Customers'
+FROM
+  tbl_customers
+WHERE
+  deleted_at IS NULL
+GROUP BY
+  DATE_FORMAT(created_at, '%Y-%m')
+ORDER BY
+  DATE_FORMAT(created_at, '%Y-%m');
 
 
 
