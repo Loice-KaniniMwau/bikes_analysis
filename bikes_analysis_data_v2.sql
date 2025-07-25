@@ -2,7 +2,7 @@
 select * from tbl_brands
 SELECT * from tbl_payments
 -- --payment modes- cheque(denoted by 2) vs cash(denoted by 1)-- 
-order_idselect * from tbl_categories
+select * from tbl_categories
 select * from tbl_customer_categories
 select * from tbl_customers
 -- from the customers table phone numbers are inconsistent
@@ -152,6 +152,17 @@ GROUP BY
   DATE_FORMAT(created_at, '%Y-%m')
 ORDER BY
   DATE_FORMAT(created_at, '%Y-%m');
+
+-- customers by cost of orders
+-- will consider only the amount paid
+
+select c.id ,c.name,sum(amount_paid) as cost_of_orders
+from tbl_orders o
+join tbl_customers c on o.customer_id = c.id
+where status !=2
+group by c.id ,c.name
+order by cost_of_orders desc
+limit 10
 
 
 
